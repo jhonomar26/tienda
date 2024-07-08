@@ -1,0 +1,34 @@
+{% extends 'gesProyectoWeb/base.html' %}
+{% load static %}
+
+{% block contenido %}
+  <h1 style="text-align: center; margin: 20px; color: white;">Formulario de contacto:</h1>
+
+  {% if 'valido' in request.GET %}
+    <div class="alert alert-info" role="alert">
+      <strong>¡Genial!</strong> La información se ha enviado correctamente
+    </div>
+  {% endif %}
+  {% if 'novalido' in request.GET %}
+    <div class="alert alert-danger" role="alert">
+      <strong>¡Opps!</strong> Lo sentimos el correo no se envio
+    </div>
+  {% endif %}
+
+  <div class="miFormulario">
+    <form method="post">
+      {% csrf_token %}
+      {{ error }}
+      {{ miFormulario }}
+      <pre></pre>
+      <div class="d-flex justify-content-center align-items-center">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+  <style>
+    label {
+      color: white;
+    }
+  </style>
+{% endblock %}

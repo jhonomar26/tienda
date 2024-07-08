@@ -1,0 +1,49 @@
+{% extends 'gesProyectoWeb/base.html' %}
+{% load static %}
+
+{% block contenido %}
+  <pre></pre>
+  <section>
+    <div class="container text-center">
+      <h1 class="mb-4" style="color: whitesmoke;">Categorías:</h1>
+      <div class="d-flex flex-wrap justify-content-center">
+        <a href="{% url 'tienda' %}" class="btn btn-primary m-2">Todas</a>
+        {% for categoria in categorias.all %}
+          <a href="{% url 'categoriaTienda' categoria.id %}" class="btn btn-primary m-2">{{ categoria.nombre }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <div class="container text-center">
+    <h4 class="mb-4" style="color: whitesmoke;">
+      Categoría seleccionada:{% if productos %}
+        {{ productos.0.categorias }}
+      {% else %}
+        No hay productos aún para esta categoria
+      {% endif %}
+    </h4>
+  </div>
+  <div class="container">
+    <div class="row">
+      {% for producto in productos %}
+        <div class="col-4" style="margin: 5px 0px 5px 0px  ;">
+          <div class="card" style="text-align: center;">
+            <img class="intro-img w-2 img-fluid mb-3 mb-lg-0 rounded" src="{{ producto.imagen.url }}" alt="" class="card-img-top" />
+            <div class="card-body">
+              <h4 class="card-title"><span class="section-heading-upper">{{ producto.nombre }}</span></h4>
+              <p class="card-text">Precio: ${{ producto.precio }}</p>
+              {% if producto.disponibilidad %}
+                <h6 class="card-text" style="color: green;">Disponible</h6>
+              {% else %}
+                <h6 class="card-text" style="color: red;">No disponible</h6>
+              {% endif %}
+              <h5 class="card-text">Descripción:</h5>
+              <p class="card-text">{{ producto.contenido }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

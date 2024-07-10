@@ -25,7 +25,11 @@
     </h4>
   </div>
   {% comment %}Tener en cuenta que se ocupa 12 por cada col-n, es decir, si quiero 4 en una fila cada una tendria que tener col-3{% endcomment %}
+
   <div class="container">
+    <div style="float: right;">
+      {% include 'carro/widget.html' %}
+    </div>
     <div class="row">
       {% for producto in productos %}
         <div class="col-4" style="margin: 5px 0px 5px 0px  ;">
@@ -37,10 +41,17 @@
               {% if producto.disponibilidad %}
                 <h6 class="card-text" style="color: green;">Disponible</h6>
               {% else %}
+                <div class="alert alert-danger" role="alert">
+                  <strong>¡Opps!</strong> Lo sentimos el producto ya no esta disponible
+                </div>
+
                 <h6 class="card-text" style="color: red;">No disponible</h6>
               {% endif %}
               <h5 class="card-text">Descripción:</h5>
               <p class="card-text">{{ producto.contenido }}</p>
+              <div class="class-footer text-center">
+                <a href="{% url 'carro:agregarProducto' producto.id %}" class="btn btn-success">Agregar al carro</a>
+              </div>
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # from io import IOBase
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,12 +41,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "crispy_forms",
     "gesProyectoWeb",
     "servicios",
     "blog",
     "contacto",
-    "crispy_forms",
     "tienda",
+    "carro",
 ]
 
 MIDDLEWARE = [
@@ -72,10 +73,14 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "carro.context_processor.importe_total_carro",
             ],
         },
     },
 ]
+TEMPLATE_DIRS = (
+    os.path.join(os.path.dirname(__file__), 'templates'),
+)
 
 WSGI_APPLICATION = "ProyectoWeb.wsgi.application"
 
@@ -143,4 +148,4 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "apuntesjhonomar@gmail.com"
-EMAIL_HOST_PASSWORD = "rqkz dymx rfst wswx"
+EMAIL_HOST_PASSWORD = ""

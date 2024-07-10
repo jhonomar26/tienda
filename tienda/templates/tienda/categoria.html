@@ -25,6 +25,9 @@
     </h4>
   </div>
   <div class="container">
+    <div style="float: right;">
+      <p style="color: white;">Total ${{ importe_total_carro }}</p>
+    </div>
     <div class="row">
       {% for producto in productos %}
         <div class="col-4" style="margin: 5px 0px 5px 0px  ;">
@@ -40,6 +43,9 @@
               {% endif %}
               <h5 class="card-text">Descripción:</h5>
               <p class="card-text">{{ producto.contenido }}</p>
+              <div class="class-footer text-center">
+                <a href="#" class="btn btn-success">Agregar al carro</a>
+              </div>
             </div>
           </div>
         </div>

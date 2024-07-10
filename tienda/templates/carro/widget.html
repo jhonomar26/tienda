@@ -1,0 +1,46 @@
+<table class="table table-bordered" style="color:white;">
+  <thead>
+    <tr>
+      <th colspan="12" class="text-center">Carro de compras</th>
+    </tr>
+    <tr>
+      <th colspan="4" class="text-center">Producto</th>
+      <th colspan="4" class="text-center">Cantidad</th>
+      <th colspan="4" class="text-center">Suma</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% if request.session.carro.items %}
+      {% for key, value in request.session.carro.items %}
+        <tr class="text-center">
+          <td colspan="4">{{ value.nombre }}</td>
+          <td colspan="4">{{ value.cantidad }}</td>
+          <td colspan="4">
+            <a href="{% url 'carro:agregarProducto' value.producto_id %}" class="btn btn-sm btn-success">+</a>
+            <a href="{% url 'carro:restarProducto' value.producto_id %}" class="btn btn-danger">-</a>
+            ${{ value.precio }}
+          </td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="12">
+          <p class="alert alert-danger text-center">Sin productos</p>
+        </td>
+      </tr>
+    {% endif %}
+  </tbody>
+  <tfoot>
+    <tr class="text-center">
+      <td colspan="12">
+        <p style="color: white;">Total ${{ importe_total_carro }}</p>
+      </td>
+    </tr>
+    <tr class="text-center">
+      <td colspan="12">
+        <p style="color: white;">Total de productos en stock para producto de id {{ productoid }}, {{cantidadProductos}}</p>
+      </td>
+    </tr>
+  </tfoot>
+</table>

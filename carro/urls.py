@@ -5,6 +5,7 @@ from . import views
 app_name = "carro"
 urlpatterns = [
     path("agregar/<int:producto_id>/", views.agregar_producto, name="agregarProducto"),
+    path('agregar/<int:producto_id>/<int:categoriaId>/', views.agregar_producto_categoria, name='agregarProductoCategoria'),
     path(
         "eliminar/<int:producto_id>/", views.eliminar_producto, name="eliminarProducto"
     ),

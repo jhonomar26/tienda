@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block contenido %}
+  {{ categoriaId }}
   <pre></pre>
   <section>
     <div class="container text-center">
@@ -16,17 +17,18 @@
   </section>
 
   <div class="container text-center">
-    <h4 class="mb-4" style="color: whitesmoke;">
-      Categoría seleccionada:{% if productos %}
-        {{ productos.0.categorias }}
-      {% else %}
-        No hay productos aún para esta categoria
-      {% endif %}
-    </h4>
+    <h4 class="mb-4" style="color: whitesmoke;">Categoría seleccionada:
+    {% if productos %}
+      {{ productos.0.categorias }}
+    {% else %}
+      No hay productos aún para esta categoria
+    {% endif %}
+  </h4>
   </div>
+
   <div class="container">
     <div style="float: right;">
-      <p style="color: white;">Total ${{ importe_total_carro }}</p>
+      {% include 'carro/widget.html' %}
     </div>
     <div class="row">
       {% for producto in productos %}
@@ -39,12 +41,16 @@
               {% if producto.disponibilidad %}
                 <h6 class="card-text" style="color: green;">Disponible</h6>
               {% else %}
+                <div class="alert alert-danger" role="alert">
+                  <strong>¡Opps!</strong> Lo sentimos el producto ya no esta disponible
+                </div>
+
                 <h6 class="card-text" style="color: red;">No disponible</h6>
               {% endif %}
               <h5 class="card-text">Descripción:</h5>
               <p class="card-text">{{ producto.contenido }}</p>
               <div class="class-footer text-center">
-                <a href="#" class="btn btn-success">Agregar al carro</a>
+                <a href="{% url 'carro:agregarProductoCategoria' producto.id categoriaId %}" class="btn btn-success">Agregar al carro</a>
               </div>
             </div>
           </div>

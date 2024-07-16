@@ -21,6 +21,7 @@ def tienda(request):
 
 
 def categoriaTienda(request, categoria_id):
+    print(categoria_id)
     categoria = CategoriaProducto.objects.get(id=categoria_id)
     productos = Producto.objects.filter(categorias=categoria)
 
@@ -30,5 +31,6 @@ def categoriaTienda(request, categoria_id):
         {
             "categorias": CategoriaProducto.objects.all(),
             "productos": productos,
+            "categoriaId": categoria_id,
         },
     )

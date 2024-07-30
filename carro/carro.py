@@ -15,27 +15,38 @@ class Carro:
             carro = self.session["carro"] = {}
         self.carro = carro
 
+    def _producto_existe(self, producto_id):
+        try:
+            Producto.objects.get(id=producto_id)
+            return True
+        except Producto.DoesNotExist:
+            return False
+
     def agregar_producto(self, producto):
         with self.lock:
             if producto.cantidad > 0:
                 producto_id_str = str(producto.id)
-                if producto_id_str not in self.carro:
-                    self.carro[producto_id_str] = {
-                        "producto_id": producto.id,
-                        "nombre": producto.nombre,
-                        "precio": str(producto.precio),
-                        "cantidad": 1,
-                        "imagen": producto.imagen.url,
-                    }
+                if self._producto_existe(producto.id):
+                    if producto_id_str not in self.carro:
+                        self.carro[producto_id_str] = {
+                            "producto_id": producto.id,
+                            "nombre": producto.nombre,
+                            "precio": str(producto.precio),
+                            "cantidad": 1,
+                            "imagen": producto.imagen.url,
+                        }
+                    else:
+                        self.carro[producto_id_str]["cantidad"] += 1
+
+                    producto.cantidad -= 1
+                    if producto.cantidad == 0:
+                        producto.disponibilidad = False
+                    producto.save()
+
+                    self.guardar_carro()
                 else:
-                    self.carro[producto_id_str]["cantidad"] += 1
-
-                producto.cantidad -= 1
-                if producto.cantidad == 0:
-                    producto.disponibilidad = False
-                producto.save()
-
-                self.guardar_carro()
+                    # Manejo si el producto ya no existe
+                    self.eliminar_producto_no_existente(producto_id_str)
 
     def guardar_carro(self):
         self.session["carro"] = self.carro
@@ -54,28 +65,37 @@ class Carro:
         # with self.lock:
         producto_id_str = str(producto.id)
         if producto_id_str in self.carro:
-            self.carro[producto_id_str]["cantidad"] -= 1
-            producto.cantidad += 1
-            # Aqui se verfica si la cantidad de ese producto añadido al carrito es igual a cero, si es asi, lo eliminamos del carrito, aunque esto lo manejamos en el template en realidad
-            if self.carro[producto_id_str]["cantidad"] == 0:
-                self.eliminar(producto)
+            if self._producto_existe(producto.id):
+                self.carro[producto_id_str]["cantidad"] -= 1
+                producto.cantidad += 1
+                # Aqui se verfica si la cantidad de ese producto añadido al carrito es igual a cero, si es asi, lo eliminamos del carrito, aunque esto lo manejamos en el template en realidad
+                if self.carro[producto_id_str]["cantidad"] == 0:
+                    self.eliminar(producto)
+                else:
+                    producto.disponibilidad = True
+                    producto.save()
+                    self.guardar_carro()
             else:
-                producto.disponibilidad = True
-                producto.save()
-                self.guardar_carro()
+                # Manejo si el producto ya no existe
+                self.eliminar_producto_no_existente(producto_id_str)
 
     def limpiar_carro(self):
         with self.lock:
-
             for key, value in self.carro.items():
-                try:
+                if self._producto_existe(value["producto_id"]):
                     producto = Producto.objects.get(id=value["producto_id"])
                     producto.cantidad += value["cantidad"]
                     if producto.cantidad > 0:
                         producto.disponibilidad = True
                     producto.save()
-                except Producto.DoesNotExist:
-                    pass
+                else:
+                    # Manejo si el producto ya no existe
+                    self.eliminar_producto_no_existente(key)
 
             self.session["carro"] = {}
             self.session.modified = True
+
+    def eliminar_producto_no_existente(self, producto_id_str):
+        if producto_id_str in self.carro:
+            del self.carro[producto_id_str]
+            self.guardar_carro()

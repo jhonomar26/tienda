@@ -18,6 +18,7 @@
   </head>
 
   <body>
+    {% csrf_token %}
     <h1 class="site-heading text-center text-white d-none d-lg-block"><span class="site-heading-lower">Gestión de Pedidos</span></h1>
 
     <!-- Usuario Autenticado -->
@@ -37,22 +38,24 @@
             <li class="nav-item {% if request.path == '/servicios/' %}active{% endif %} px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="{% url 'servicios' %}">Servicios</a>
             </li>
-            <li class="nav-item {% if request.path|slice:':5' == '/tienda' %}active{% endif %} px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="{% url 'tienda' %}">Tienda</a>
-            </li>
-            <li class="nav-item {% if request.path == '/contacto/' %}active{% endif %} px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="{% url 'contacto' %}">Contacto</a>
-            </li>
-            <li class="nav-item {% if request.path|slice:':5' == '/blog' %}active{% endif %} px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="{% url 'blog' %}">Blog</a>
-            </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item {% if request.path|slice:':5' == '/tienda' %}active{% endif %} px-lg-4">
+                <a class="nav-link text-uppercase text-expanded" href="{% url 'tienda' %}">Tienda</a>
+              </li>
+              <li class="nav-item {% if request.path == '/contacto/' %}active{% endif %} px-lg-4">
+                <a class="nav-link text-uppercase text-expanded" href="{% url 'contacto' %}">Contacto</a>
+              </li>
+              <li class="nav-item {% if request.path|slice:':5' == '/blog' %}active{% endif %} px-lg-4">
+                <a class="nav-link text-uppercase text-expanded" href="{% url 'blog' %}">Blog</a>
+              </li>
+            {% endif %}
           </ul>
           <div class="navbar-text ml-auto usuarioAutenticado">
             {% if user.is_authenticated %}
               Hola, {{ user.username }}&nbsp;
               <a href="{% url 'cerrar_sesion' %}">Cerrar sesión</a>
             {% else %}
-              <a href="#">Login</a>
+              <a href="{% url 'logear' %}">Login</a>
               <a href="{% url 'autenticacion' %}">Registrarse</a>
             {% endif %}
           </div>

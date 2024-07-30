@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .carro import Carro
 from tienda.models import Producto, CategoriaProducto
 from tienda.views import categoriaTienda
+from django.contrib.auth import logout
 
 # Create your views here.
 
@@ -39,4 +40,6 @@ def restar_producto(request, producto_id):
 def limpiar_carro(request):
     carro = Carro(request)
     carro.limpiar_carro()
+    logout(request)
+
     return redirect("tienda")

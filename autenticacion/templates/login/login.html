@@ -1,0 +1,15 @@
+{% extends 'gesProyectoWeb/base.html' %}
+{% load static %}
+
+{% block contenido %}
+  <h1 style="text-align: center; margin: 20px; color: white;">Formulario de inicio de sesión:</h1>
+  <div class="formularioRegistro">
+    <form method="post" style="color: white;">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <div class="d-flex justify-content-center align-items-center">
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

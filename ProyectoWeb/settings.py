@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+
 # from io import IOBase
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,7 +49,10 @@ INSTALLED_APPS = [
     "contacto",
     "tienda",
     "carro",
+    "autenticacion",
 ]
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -78,9 +82,7 @@ TEMPLATES = [
         },
     },
 ]
-TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), 'templates'),
-)
+TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), "templates"),)
 
 WSGI_APPLICATION = "ProyectoWeb.wsgi.application"
 

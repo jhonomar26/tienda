@@ -10,45 +10,52 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMsdWw5p3uC6JbFIsRJxUb6+LFAREmJbQ/8KzQG" crossorigin="anonymous" />
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+
     <!-- Styles -->
     <link href="{% static 'gesProyectoWeb/css/gestion.css' %}" rel="stylesheet" />
   </head>
 
   <body>
     <h1 class="site-heading text-center text-white d-none d-lg-block"><span class="site-heading-lower">Gestión de Pedidos</span></h1>
-    <!-- Navbar -->
 
+    <!-- Usuario Autenticado -->
+
+    <!-- Header -->
+
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-steelblue py-lg-4" id="mainNav">
       <div class="container">
         <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="{% url 'home' %}">Gestión de Pedidos</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item 
-            {% if request.path == '/' %}active{% endif %} 
-            px-lg-4">
+            <li class="nav-item {% if request.path == '/' %}active{% endif %} px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="{% url 'home' %}">Inicio</a>
             </li>
-            <li class="nav-item            
-             {% if request.path == '/servicios/' %}active{% endif %}
-            px-lg-4">
+            <li class="nav-item {% if request.path == '/servicios/' %}active{% endif %} px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="{% url 'servicios' %}">Servicios</a>
             </li>
-            <li class="nav-item 
-              {% if request.path|slice:':5' == '/tienda' %}active{% endif %}            px-lg-4">
+            <li class="nav-item {% if request.path|slice:':5' == '/tienda' %}active{% endif %} px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="{% url 'tienda' %}">Tienda</a>
             </li>
-            <li class="nav-item 
-            {% if request.path == '/contacto/' %}active{% endif %}
-            px-lg-4">
+            <li class="nav-item {% if request.path == '/contacto/' %}active{% endif %} px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="{% url 'contacto' %}">Contacto</a>
             </li>
-            <li class="nav-item 
-            {% if request.path|slice:':5' == '/blog' %}active{% endif %}
-            px-lg-4">
+            <li class="nav-item {% if request.path|slice:':5' == '/blog' %}active{% endif %} px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="{% url 'blog' %}">Blog</a>
             </li>
           </ul>
+          <div class="navbar-text ml-auto usuarioAutenticado">
+            {% if user.is_authenticated %}
+              Hola, {{ user.username }}&nbsp;
+              <a href="{% url 'cerrar_sesion' %}">Cerrar sesión</a>
+            {% else %}
+              <a href="#">Login</a>
+              <a href="{% url 'autenticacion' %}">Registrarse</a>
+            {% endif %}
+          </div>
         </div>
       </div>
     </nav>

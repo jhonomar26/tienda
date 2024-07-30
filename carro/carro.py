@@ -8,6 +8,7 @@ class Carro:
         self.request = request
         self.session = request.session
         carro = self.session.get("carro")
+        # Esto es para que cualquier acción que se realice sea eliminar, agregar, modificar, etc, se tenga en cuenta un bloqueo, para que otro usuarrio no haga alguna de estas acciones al mismo tiempo
         self.lock = threading.Lock()
 
         if not carro:

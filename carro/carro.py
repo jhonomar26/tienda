@@ -14,6 +14,7 @@ class Carro:
         if not carro:
             carro = self.session["carro"] = {}
         self.carro = carro
+        # Comprobar si un producto existe (posibilidad que sea eliminado por el admin)
 
     def _producto_existe(self, producto_id):
         try:

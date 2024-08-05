@@ -55,7 +55,7 @@
               Hola, {{ user.username }}&nbsp;
               <a href="{% url 'cerrar_sesion' %}">Cerrar sesión</a>
             {% else %}
-              <a href="{% url 'logear' %}">Login</a>
+              <a href="{% url 'logear' %}">Iniciar sesión</a>
               <a href="{% url 'autenticacion' %}">Registrarse</a>
             {% endif %}
           </div>

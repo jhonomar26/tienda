@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from tienda.models import Producto, CategoriaProducto
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 

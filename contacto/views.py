@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import formularioContacto
 from django.core.mail import EmailMessage, send_mail
+from django.contrib.auth.decorators import login_required
 
 import logging
 

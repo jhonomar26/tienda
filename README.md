@@ -1,70 +1,75 @@
+# Online Store
 
-## Instalación
+## Project Description
+Online Store is a web application developed with Django that allows efficient management of clients, products, and orders. It includes features such as a contact form, product search, and a user-friendly interface for data management.
 
-1. Clona el repositorio:
+## Technologies Used
+This project was developed using the following technologies:
+
+- **Python** and **Django**: For the backend and business logic.
+- **PostgreSQL**: Database for storing information.
+- **HTML, CSS, and JavaScript**: For the user interface.
+- **Bootstrap / Tailwind CSS**: For design and styling.
+- **Django Forms**: For form management.
+
+## Installation
+
+1. Clone the repository:
     ```sh
-    git clone https://github.com/tu_usuario/tu_repositorio.git
+    git clone https://github.com/your_user/your_repository.git
     ```
-2. Navega al directorio del proyecto:
+2. Navigate to the project directory:
     ```sh
-    cd TiendaOnline
+    cd OnlineStore
     ```
-3. Crea un entorno virtual:
+3. Create a virtual environment:
     ```sh
     python -m venv env
     ```
-4. Activa el entorno virtual:
-    - En Windows:
+4. Activate the virtual environment:
+    - On Windows:
         ```sh
         .\env\Scripts\activate
         ```
-    - En macOS/Linux:
+    - On macOS/Linux:
         ```sh
         source env/bin/activate
         ```
-5. Instala las dependencias:
+5. Install dependencies:
     ```sh
     pip install -r requirements.txt
     ```
-6. Realiza las migraciones de la base de datos:
+6. Apply database migrations:
     ```sh
     python manage.py migrate
     ```
 
-## Uso
+## Usage
 
-1. Inicia el servidor de desarrollo:
+1. Start the development server:
     ```sh
     python manage.py runserver
     ```
-2. Abre tu navegador y navega a [http://127.0.0.1:8000/](http://_vscodecontentref_/23) para ver la aplicación en funcionamiento.
+2. Open your browser and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to view the application in action.
 
-## Funcionalidades
+## Features
 
-- **Gestión de Clientes**: Permite agregar, editar y eliminar clientes.
-- **Gestión de Artículos**: Permite agregar, editar y eliminar artículos.
-- **Gestión de Pedidos**: Permite agregar, editar y eliminar pedidos.
-- **Formulario de Contacto**: Permite a los usuarios enviar mensajes de contacto.
-- **Búsqueda de Productos**: Permite a los usuarios buscar productos por nombre.
+- **Client Management**: Allows adding, editing, and deleting clients.
+- **Product Management**: Allows adding, editing, and deleting products.
+- **Order Management**: Allows adding, editing, and deleting orders.
+- **Contact Form**: Allows users to send messages.
+- **Product Search**: Allows users to search for products by name.
 
-## Archivos Principales
+## Main Files
 
-- [models.py](http://_vscodecontentref_/24): Define los modelos de la aplicación.
-- [views.py](http://_vscodecontentref_/25): Define las vistas de la aplicación.
-- [forms.py](http://_vscodecontentref_/26): Define los formularios de la aplicación.
-- [settings.py](http://_vscodecontentref_/27): Configuración del proyecto Django.
-- [urls.py](http://_vscodecontentref_/28): Define las rutas de la aplicación.
+- `models.py`: Defines the application models.
+- `views.py`: Defines the application views.
+- `forms.py`: Defines the application forms.
+- `settings.py`: Django project configuration.
+- `urls.py`: Defines the application routes.
 
-## Contribución
+5. Create a Pull Request.
 
-Si deseas contribuir a este proyecto, por favor sigue los siguientes pasos:
+## License
 
-1. Haz un fork del repositorio.
-2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
-3. Realiza tus cambios y haz commit (`git commit -am 'Añadir nueva funcionalidad'`).
-4. Sube tus cambios a tu fork (`git push origin feature/nueva-funcionalidad`).
-5. Crea un Pull Request.
-
-## Licencia
-
-Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
